@@ -74,3 +74,54 @@ penguins |> filter(sex > 0) |> count()
 ## Task No. 5 - I define a small penguin as weighing less than 3500g and having a bill shorter than 35mm. How many penguins meet this criteria?
 penguins |> filter(body_mass < 3500 & bill_len < 35) |> count()
 ```
+
+
+```{r}
+#Usage of Select
+##Task No. 1 - Use select() and starts_with() to keep all columns that measure a physical feature of the penguins (bill_len, bill_dep, flipper_len, body_mass).
+
+penguins |> select(starts_with("b") | starts_with("f")) |> head()
+```
+
+
+```{r}
+# Distinct Function
+## Task No. 1 - For each penguin species, identify which islands they are found on.
+
+penguins |> distinct(species, island)
+
+## Task No. 2 - Filter for penguins with a body mass greater than 4000g, then find the distinct species-sex combinations (e.g., among ‘big’ penguins, are there both males and females from all species, or are only some species/sexes present).
+
+penguins |> filter(body_mass > 4000) |> distinct(species, sex) |> head()
+
+## Task No. 3 - Filter for Gentoo penguins from the Biscoe island. How many distinct years were they sampled in?
+
+penguins |> filter(species == "Gentoo" & island == "Biscoe") |> distinct(year) |> head()
+```
+
+
+```{r}
+# Working with mutate
+
+## Task No. 1 - Create a new variable called body_mass_kg.
+
+penguins |> 
+  mutate(body_mass_kg = body_mass / 1000) |>  
+  select(contains("body")) |> 
+  head()
+
+## Task No. 2 - Create a new variable flipper_to_mass_ratio, and sort it in decreasing order. - This is called a derived variable and is extremely useful.
+
+penguins |> 
+  mutate(flipper_to_mass_ratio = flipper_len / body_mass) |> 
+  arrange(desc(flipper_to_mass_ratio)) |> 
+  select(contains("f") | contains("body")) |> 
+  relocate(flipper_to_mass_ratio, .after = body_mass)
+  head()
+
+## Task No. 3 - Create a new variable called heavy indicating whether body_mass is greater than 4.5kg.
+penguins |> 
+  mutate(heavy = body_mass > 4500) |> 
+  select(contains("species") | contains("island") | contains("heavy"))
+  head()
+```
