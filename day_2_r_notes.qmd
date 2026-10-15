@@ -33,42 +33,44 @@ penguins |> relocate(year, .after = island) |> head()
 
 
 ```{r}
-# Task 1
+# Arranging the Order - Slide 11-17
+## Task 1
 penguins |> arrange(body_mass) |> relocate(body_mass, .after = island) |> head()
 
-# Task 2
+## Task 2
 penguins |> arrange(desc(flipper_len)) |> relocate(flipper_len, .after = island) |> head()
 
-# Task 3
+## Task 3
 penguins |> group_by(species) |> arrange(bill_len) |> relocate(bill_len, .after = island)
-## alt. solution (slide 12)
+### alt. solution (slide 12)
 penguins |> arrange(species, desc(bill_len))
 
-# Task 4
+## Task 4
 penguins |> relocate(bill_dep, bill_len, flipper_len, body_mass, .after =species)
 
-# Task 5
+## Task 5
 penguins |> relocate(year, .after = sex)
 
-# Challenge
+## Challenge
 penguins |> arrange(desc(body_mass)) |> relocate(body_mass, bill_dep, bill_len, flipper_len, .before = species)
 ```
 
 
 ```{r}
-# Task No. 1 - Filter Adelie penguins
+# Keeping or Removing Data
+## Task No. 1 - Filter Adelie penguins
 
 penguins |> filter(species == "Adelie") |> count()
 
-# Task No. 2 - Which Island has most penguins
+## Task No. 2 - Which Island has most penguins
 penguins |> count(island)
 
-#Task No. 3 - Display all Gentoo Penguins which have a body mass greater than 5.000 g
+## Task No. 3 - Display all Gentoo Penguins which have a body mass greater than 5.000 g
 penguins |> filter(species == "Gentoo" & body_mass > 5000) |> relocate(body_mass, .after = island)
 
-#Task No. 4 - For how many penguins do we have sex data
+## Task No. 4 - For how many penguins do we have sex data
 penguins |> filter(sex > 0) |> count()
 
-#Task No. 5 - I define a small penguin as weighing less than 3500g and having a bill shorter than 35mm. How many penguins meet this criteria?
+## Task No. 5 - I define a small penguin as weighing less than 3500g and having a bill shorter than 35mm. How many penguins meet this criteria?
 penguins |> filter(body_mass < 3500 & bill_len < 35) |> count()
 ```
