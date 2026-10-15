@@ -33,36 +33,24 @@ penguins |> relocate(year, .after = island) |> head()
 
 
 ```{r}
-#Task 1
+# Task 1
 penguins |> arrange(body_mass) |> relocate(body_mass, .after = island) |> head()
 
-#Task 2
+# Task 2
 penguins |> arrange(desc(flipper_len)) |> relocate(flipper_len, .after = island) |> head()
-```
 
-
-```{r}
-#Task 3
+# Task 3
 penguins |> group_by(species) |> arrange(bill_len) |> relocate(bill_len, .after = island)
-#alt. solution (slide 12)
+## alt. solution (slide 12)
 penguins |> arrange(species, desc(bill_len))
-```
 
-
-```{r}
-#Task 4
+# Task 4
 penguins |> relocate(bill_dep, bill_len, flipper_len, body_mass, .after =species)
-```
 
-
-```{r}
-#Task 5
+# Task 5
 penguins |> relocate(year, .after = sex)
-```
 
-
-```{r}
-#Challenge
+# Challenge
 penguins |> arrange(desc(body_mass)) |> relocate(body_mass, bill_dep, bill_len, flipper_len, .before = species)
 ```
 
