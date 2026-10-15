@@ -125,3 +125,38 @@ penguins |>
   select(contains("species") | contains("island") | contains("heavy"))
   head()
 ```
+
+
+```{r}
+# Usage of case_when()
+## Use case_when() to define penguins as ‘big’, ‘medium’ or ‘small’ based on two variables (this is arbitrary, you decide how to define these values). Call the new variable “size”.
+## Recall the code for ggplot, and generate a plot showing the two variables on the x and y axis, with size shown by colour.
+penguins |> 
+  mutate(size = case_when(
+    bill_len < 40 &
+        body_mass <= 3500 ~ "small",
+    bill_len >= 50 &
+        body_mass >= 4000 ~ "large",
+    TRUE ~ "medium"
+  )) |> 
+ggplot(mapping = aes(x = bill_len,
+                     y = body_mass,
+                     colour = size)) +
+  geom_point()
+
+```
+
+
+```{r}
+# Working with groub_by()
+## Change group_by() to group by species and island and note the output.
+penguins |> 
+  group_by(species, island) |> 
+  summarize(mean_flipper_len = mean(flipper_len, na.rm = TRUE))
+
+##group_by() and filter() and addtionally max()
+penguins |> 
+  group_by(species) |> 
+  filter(body_mass == max(body_mass, na.rm = TRUE))
+
+```
