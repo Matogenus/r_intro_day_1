@@ -1,0 +1,22 @@
+---
+title: "day_3_r_notes"
+format: html
+---
+
+
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+tidyverse_packages()
+
+read_csv(file = "data/penguin_dataset.csv")
+
+penguins <- read_csv(file = "data/penguin_dataset.csv")
+```
+
+# Importing with readr
+
+
+```{r}
+
+```
