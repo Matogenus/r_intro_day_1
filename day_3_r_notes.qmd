@@ -18,5 +18,53 @@ penguins <- read_csv(file = "data/penguin_dataset.csv")
 
 
 ```{r}
+ggplot(data = penguins,
+       mapping = aes(x = bill_len,
+                     y = bill_dep,
+                     colour = body_mass,
+                     shape = species)) +
+    labs(title = "Bill length and depth in penguins",
+       x = "Bill length (mm)",
+       y = "Bill depth (mm)",
+       shape = "Species",
+       colour = "Body Mass") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold")) +
+  geom_point(size = 3,
+             alpha = 1.0)
+```
 
+
+# Generating some example data and generate a Heatmap
+
+
+```{r}
+set.seed(0982)
+month_data <- tibble(
+  date = seq(as.Date("2024-12-01"), 
+              as.Date("2024-12-31"), 
+              by = "day"),
+  count = sample(1:20, 31, replace = TRUE)  # Random counts per day
+) |>
+  mutate(
+    wday = wday(date, label = TRUE, abbr = TRUE),  # Day of the week (Sun-Sat)
+    week = (day(date) - 1) %/% 7 + 1  # Week number (1 to 5)
+  )
+
+month_data |> head()  
+```
+
+
+```{r}
+ggplot(data = month_data,
+       mapping = aes(x = wday, 
+                      y = week, 
+                      fill = count)) +
+  geom_tile(colour = "white") +
+  scale_y_reverse() +
+  theme_classic() + #removes background grid-lines
+  labs(title = "Productivity December 2024",
+       x = "Week Days",
+       y = "Weeks",
+       fill = "Count")
 ```
